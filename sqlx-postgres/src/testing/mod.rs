@@ -84,10 +84,6 @@ async fn test_context(args: &TestArgs) -> Result<TestContext<Postgres>, Error> {
         .and_then(|s| s.parse().ok())
         .unwrap_or(100);
 
-    if let Some(master_pool) = MASTER_POOL.get() {
-        println!("running test with pool {:?}", master_pool);
-    }
-
     let pool = PoolOptions::new()
         // Postgres' normal connection limit is 100 plus 3 superuser connections
         // We don't want to use the whole cap and there may be fuzziness here due to
